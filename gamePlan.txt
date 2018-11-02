@@ -1,0 +1,6 @@
+11/02/2018
+    Got GitHub working
+    Consolidated files
+    *** Chad's plan: ***
+    get types workings
+    Get user logins working (i.e. socket 1 = player 1)
