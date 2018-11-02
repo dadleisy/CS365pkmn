@@ -1,0 +1,79 @@
+body{
+    background-color: lightgray; 
+}
+#imageField{
+    background-color: darkgray;
+    /*height: 75%;*/
+    height: 420px;
+    width: 95%;
+    margin: auto;
+}
+#textField{
+    /*height: 20%;*/
+    height: 110px;
+    width: 95%;
+    margin: auto;
+    border: double black 4px;
+    border-radius: 15px;
+}
+.splitMenu{
+    height: 110px;
+    width: 47%;
+    border: double black 4px;
+    border-radius: 15px;
+}
+.playerOne{
+    float: left;
+    margin-left: 2.2%;
+}
+.playerTwo{
+    float: right;
+    margin-right: 2.2%;
+}
+.myButtions {
+    font-size: 14pt;
+    float: left;
+    margin-top: 3.5%;
+    margin-left: 10%;
+}
+#oppenetGroup {
+    float: right;
+    margin-right: 5%;
+    margin-top: 2%;
+}
+#oppenetHealthBar{
+    float: left;
+    margin-top: 5px;
+    margin-right: 15px; 
+}
+#oppenetHealth{
+    background-color: red;
+    height: 15px;
+    width: 100px;
+}
+#playerGroup {
+    float: left;
+    margin-left: 5%;
+    margin-top: 15%;
+}
+
+#playerHealthBar{
+    float: right;
+    margin-left: 15px;
+    margin-top: 45%;
+}
+#playerOnePokemonName{
+    float: right;
+    margin-top: 35%;
+    z-index: 1;
+}
+#playerHealth{
+    background-color: red;
+    height: 15px;
+    width: 100px;
+}
+.healthBars{
+    background-color: white;
+    height: 15px;
+    width: 150px;
+}

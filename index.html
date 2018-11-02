@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>CS365 Pokémon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script type="text/javascript" src="jquery-3.3.1.js"></script>
+    <script src="/socket.io/socket.io.js" type="text/javascript"></script>
+    <script src="main.js"></script>
+</head>
+<body>
+    <!-- image field -->
+    <div id ="imageField">
+        <div id ="oppenetGroup">
+            <h3 id="playerTwoPokemonName">p2 name</h3>
+            <div id="oppenetHealthBar" class ="healthBars">
+                <div id="oppenetHealth"></div>
+              </div>
+            <img id="oppenet" class = "sprites" src= null>
+        </div>
+        <div id= "playerGroup">
+            <img id="player" class = "sprites" src= null>
+            <h3 id="playerOnePokemonName">p1 name</h3>
+            <div id="playerHealthBar" class ="healthBars">
+                <div id="playerHealth"></div>
+              </div>
+
+        </div>
+    </div>
+    
+    <!-- menu -->
+    <div id="playerOneMenu" class = "splitMenu playerOne">
+        <h1 id= "fight1" class = "myButtions">Fight</h1>
+        <h1 id= "item1" class = "myButtions">Item</h1>
+        <h1 id = "swap1" class = "myButtions">Swap Pokémon</h1>
+        <h1 id = "run1" class = "myButtions">Run</h1>
+    </div>
+    <div id="playerTwoMenu" class = "splitMenu playerTwo">
+        <h1 id= "fight2" class = "myButtions">Fight</h1>
+        <h1 id= "item2" class = "myButtions">Item</h1>
+        <h1 id = "swap2" class = "myButtions">Swap Pokémon</h1>
+        <h1 id = "run2" class = "myButtions">Run</h1>
+    </div>
+
+    <!--fight menu-->
+    <div id = "playerOneFightMenu" class = "splitMenu playerOne">
+        <h1 id= "firstAttack1" class = "myButtions">Attack 1</h1>
+        <h1 id= "secondAttack1" class = "myButtions">Attack 2</h1>
+        <h1 id= "thirdAttack1" class = "myButtions">Attack 3</h1>
+        <h1 id= "fourthAttack1" class = "myButtions">Attack 4</h1>
+    </div>
+    <div id = "playerTwoFightMenu" class = "splitMenu playerTwo">
+        <h1 id= "firstAttack2" class = "myButtions">Attack 1</h1>
+        <h1 id= "secondAttack2" class = "myButtions">Attack 2</h1>
+        <h1 id= "thirdAttack2" class = "myButtions">Attack 3</h1>
+        <h1 id= "fourthAttack2" class = "myButtions">Attack 4</h1>
+    </div>
+
+    <!-- waiting -->
+    <div id = "playerOneWaitText" class = "splitMenu playerOne">
+        <h2>Waiting for the other Player</h2>
+    </div>
+    <div id = "playerTwoWaitText" class = "splitMenu playerTwo">
+        <h2>Waiting for the other Player</h2>
+    </div>
+
+    <div id="textField">
+        <h2 id = "battleText">Some default text.</h2>
+    </div>
+</body>
+</html>
