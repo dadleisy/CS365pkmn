@@ -4,3 +4,4 @@
     *** Chad's plan: ***
     get types workings
     Get user logins working (i.e. socket 1 = player 1)
+    Get pick.html fully functional
