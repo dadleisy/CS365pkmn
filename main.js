@@ -210,3 +210,6 @@ function setThingsUp() {
 }
 
 $(setThingsUp);
+$("#imageField").hide();
+$("#playerOneMenu").hide();
+$("playerTwoMenu").hide();
