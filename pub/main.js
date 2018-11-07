@@ -212,6 +212,13 @@ function setThingsUp() {
 }
 
 $(setThingsUp);
-$("#imageField").hide();
-$("#playerOneMenu").hide();
-$("playerTwoMenu").hide();
+
+$(document).ready(function(){
+    $(".pkmn").hide();
+    $(".queue").hide();
+    $("#imageField").hide();
+    $("#playerOneMenu").hide();
+    $("#playerTwoMenu").hide();
+});
+
+

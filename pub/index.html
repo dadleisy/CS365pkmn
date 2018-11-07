@@ -22,12 +22,14 @@
             <thead>Pokemon List</thead>
         </table><br>
         <!-- playerPick can be modified by jQuery to update player name-->
-        <p id="playerPick">Input a trainer name: </p>
-        <input type="text" id="playerPick">
+        <p class="playerPick">Input a trainer name: </p>
+        <input type="text" class="playerPick">
         <button id="trainerName" class="playerPick" type="button">Confirm Name</button> <br>
         <!-- show queue, possible position-->
-        <textarea id="playing" type="text"></textarea> <!-- Two players in game -->
-        <textarea id="queue" type="text"></textarea><br> <!-- Players waiting -->
+        <p>Trainers playing in next round:</p>
+        <textarea class="queue" type="text"></textarea> <!-- Two players in game -->
+        <p>Trainers waiting in queue:</p>
+        <textarea class="queue" type="text"></textarea><br> <!-- Players waiting -->
     
         <!-- once trainer name selected, P1 and P2 pick Pokemon-->
         <p class="pick">Select three pokemon by ID# from the list above.</p>
