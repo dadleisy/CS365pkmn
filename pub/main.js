@@ -28,13 +28,18 @@ function showWaitText(player){
 }
 
 function setThingsUp() {
-    $("playerOneFightMenu").hide();
-    $("playerTwoFightMenu").hide();
+    $("#playerOneMenu").hide();
+    $("#playerTwoMenu").hide();
+    $("#playerOneFightMenu").hide();
+    $("#playerTwoFightMenu").hide();
     $("#playerOneWaitText").hide();
     $("#playerTwoWaitText").hide();
     $("#textField").hide();
 
-    // $("")
+    $("#pkmnTable").hide();
+    $(".queue").hide();
+    $(".pick").hide();
+    $("#imageField").hide();
 
     function updateGUI(){
         $(document.getElementById("oppenetHealth")).width(playerTwoHealth);
@@ -212,13 +217,4 @@ function setThingsUp() {
 }
 
 $(setThingsUp);
-
-$(document).ready(function(){
-    $(".pkmn").hide();
-    $(".queue").hide();
-    $("#imageField").hide();
-    $("#playerOneMenu").hide();
-    $("#playerTwoMenu").hide();
-});
-
 

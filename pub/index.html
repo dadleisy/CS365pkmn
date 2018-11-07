@@ -17,20 +17,22 @@
     <!-- client start - select Pokemon screen -->
     <div id="pickPage">
         <!-- display list of available Pokemon-->
-        <table id="pkmn">
-            <!-- table populate like lab 3 -->
-            <thead>Pokemon List</thead>
-        </table><br>
+        <div id="pkmnTable">
+            <table class="pkmn">
+                <!-- table populate like lab 3 -->
+                <thead class="pkmn">Pokemon List</thead>
+            </table>
+        </div>
         <!-- playerPick can be modified by jQuery to update player name-->
         <p class="playerPick">Input a trainer name: </p>
         <input type="text" class="playerPick">
         <button id="trainerName" class="playerPick" type="button">Confirm Name</button> <br>
         <!-- show queue, possible position-->
-        <p>Trainers playing in next round:</p>
+        <p class="queue">Trainers playing in next round:</p>
         <textarea class="queue" type="text"></textarea> <!-- Two players in game -->
-        <p>Trainers waiting in queue:</p>
+        <p class="queue">Trainers waiting in queue:</p>
         <textarea class="queue" type="text"></textarea><br> <!-- Players waiting -->
-    
+
         <!-- once trainer name selected, P1 and P2 pick Pokemon-->
         <p class="pick">Select three pokemon by ID# from the list above.</p>
         <input type="text" id="pkmn1" class="pick">
