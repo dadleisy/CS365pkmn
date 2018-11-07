@@ -26,9 +26,9 @@ var p2 = [];
 // database insert of Pokemon
 var pkmn = {name: "name", hp: 0, atk: 0, def: 0, spd: 0, m1: 0, m2: 0, m3: 0, m4: 0};
 var move = {moveName: "name", power: "power", acr: "acr"};
-db.pokemon.insert(new pkmn("Charizard", 153, 93, 98, 120, new move("tackle", 40, 100), new move("tackle", 40, 100), new move("tackle", 40, 100), new move("tackle", 40, 100)));
-db.pokemon.insert(new pkmn("Blastoise", 154, 92, 120, 98, new move("tackle", 40, 100), new move("tackle", 40, 100), new move("tackle", 40, 100), new move("tackle", 40, 100)));
-db.pokemon.insert(new pkmn("Venasaur", 155, 91, 103, 100, new move("tackle", 40, 100), new move("tackle", 40, 100), new move("tackle", 40, 100), new move("tackle", 40, 100)));
+//db.pokemon.insert(new pkmn("Charizard", 153, 93, 98, 120, new move("tackle", 40, 100), new move("tackle", 40, 100), new move("tackle", 40, 100), new move("tackle", 40, 100)));
+//db.pokemon.insert(new pkmn("Blastoise", 154, 92, 120, 98, new move("tackle", 40, 100), new move("tackle", 40, 100), new move("tackle", 40, 100), new move("tackle", 40, 100)));
+//db.pokemon.insert(new pkmn("Venasaur", 155, 91, 103, 100, new move("tackle", 40, 100), new move("tackle", 40, 100), new move("tackle", 40, 100), new move("tackle", 40, 100)));
 
 function pokemon(name, image, maxHealth, attack, defense, speed, attack1Name, attack1Damage, attack2Name, attack2Damage, attack3Name, attack3Damage, attack4Name, attack4Damage,) {
     this.name = name;
@@ -117,7 +117,7 @@ function pokemon(name, image, maxHealth, attack, defense, speed, attack1Name, at
             return this.getAttack4Info();
         }
     }
-}
+} // end PKMN initializer
 
 //set these when grabbing from the data base
 var playerOnePokemon = new pokemon ("default1", "default.PNG", 150, "Attack 1", 20, "Attack 2", 30, "Attack 3", 40, "Attack 4", 50,);
@@ -158,6 +158,13 @@ function makePlayerSpeedsRandom(){
 io.on("connection", function(socket) {
     console.log("Somebody connected.");
     // update trainer name
+
+
+
+
+
+
+    // start game
     io.emit("effectPlayerOneHealth", playerOnePokemon.getCurrentHealth());
     io.emit("effectPlayerTwoHealth", playerTwoPokemon.getCurrentHealth());
     io.emit("getAllBasicInfoOfPlayerOnePokemon", playerOnePokemon.getName(), playerOnePokemon.getSprite(), playerOnePokemon.getCurrentHealth(), playerOnePokemon.attack1Name, playerOnePokemon.attack2Name, playerOnePokemon.attack3Name, playerOnePokemon.attack4Name);
@@ -247,7 +254,7 @@ io.on("connection", function(socket) {
         fight(playerOneReady, playerTwoReady);
     });
 
-});
+}); // end on connection
 
 server.listen(80, function () {
     console.log("Server is waiting on port 80.");

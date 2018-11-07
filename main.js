@@ -34,6 +34,8 @@ function setThingsUp() {
     $("#playerTwoWaitText").hide();
     $("#textField").hide();
 
+    // $("")
+
     function updateGUI(){
         $(document.getElementById("oppenetHealth")).width(playerTwoHealth);
         $(document.getElementById("playerHealth")).width(playerOneHealth);
