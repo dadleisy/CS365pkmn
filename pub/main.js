@@ -6,13 +6,13 @@ var gameReady = false;
 playerOne = 1;
 playerTwo = 1;
 var socket = io();
+var trainerLocal = "";
 
 var playerOneHealth;
 var playerTwoHealth;
 var playerOnesCurrentPokemonName;
 var playerTwosCurrentPokemonName;
 var attackOrder = -1;
-
 
 function showMainBattleMenu(player) {
     $("#player" + player + "WaitText").hide();
@@ -49,6 +49,7 @@ function setThingsUp() {
 
     $("#trainerName").click(function (event) {
         //The function I'm passing here is a callback, and socket.io allows the server to "call" that function.
+        trainerLocal = $("#trainer").val();
         socket.emit("setTrainer", $("#trainer").val(), function (loginSuccessful) {
             if (loginSuccessful === true) {
                 $(".playerPick").hide(); // change for trainer
@@ -251,8 +252,10 @@ function setThingsUp() {
         // write rest in other
     });
 
-    socket.on("showPKMN", function() {
-        $("#pkmnTable").show();
+    socket.on("showPKMN", function(queue) {
+        if (trainerLocal == queue[0] || trainerLocal == queue[1]) {
+            $("#pkmnTable").show();
+        }
     });
 }
 

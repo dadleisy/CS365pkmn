@@ -197,7 +197,7 @@ io.on("connection", function(socket) {
             if (queue.length >= 2) {
                 if ( queue[queue.indexOf(trainerNames[socket.id])] == queue[0] || queue[queue.indexOf(trainerNames[socket.id])] == queue[1]) {
                     // if you are playing, get the Pokemon pick menu
-                    socket.emit("showPKMN");
+                    io.emit("showPKMN", sendQueue(queue));
                 }
                 else {
                     // display the "Players are choosing pokemon" screen
