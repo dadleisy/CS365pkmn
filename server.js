@@ -16,10 +16,26 @@ app.use(express.static("pub"));
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 
+function getUsernameListLowerCase() { // borrowing this for our own checks. Thanks! :-)
+	var ret = [];
+
+	for(i in trainerNames) {
+		ret.push(trainerNames[i].toLowerCase()); // send out all names
+	}
+
+	return ret;
+}
+
+function sendQueue(q) {
+    return q;
+}
+
 var trainerNames = [];
 var queue = [];
+var sizeQueue = 0;
 
 // player one and two
+// DONT KNOW if we will need these?
 var p1 = [];
 var p2 = [];
 
@@ -158,6 +174,39 @@ function makePlayerSpeedsRandom(){
 io.on("connection", function(socket) {
     console.log("Somebody connected.");
     // update trainer name
+
+    socket.on("disconnect", function() {
+		//This particular socket connection was terminated (probably the client went to a different page
+		//or closed their browser).
+		console.log(trainerNames[socket.id] + " disconnected.");
+        delete queue[queue.indexOf(trainerNames[socket.id])]; // pop guy from queue
+        delete trainerNames[socket.id]; // pop guy from game world
+        queue = queue.filter(Boolean); // get rid of empties
+        console.log(queue);
+	});
+
+    socket.on("setTrainer", function(username, callbackFunctionForClient) {
+		if (getUsernameListLowerCase().indexOf(username.toLowerCase()) >= 0 || username == "") { //username already exists.
+			callbackFunctionForClient(false);
+		}
+		else {
+            sizeQueue += 1; // increase size of queue
+            queue.push(username); // set queue position
+            trainerNames[socket.id] = username; // may have to disconnect
+            console.log("My socket's ID is: " + queue[queue.length - 1]);
+            if (queue.length >= 2) {
+                if ( queue[queue.indexOf(trainerNames[socket.id])] == queue[0] || queue[queue.indexOf(trainerNames[socket.id])] == queue[1]) {
+                    // if you are playing, get the Pokemon pick menu
+                    socket.emit("showPKMN");
+                }
+                else {
+                    // display the "Players are choosing pokemon" screen
+                }
+            }
+			io.emit("updateQueue", sendQueue(queue));
+			callbackFunctionForClient(true);
+		}
+	});
 
 
 
