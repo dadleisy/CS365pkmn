@@ -1,7 +1,7 @@
 // mongo.db server stuff
 var mongodb = require("mongodb");
 var MongoClient = mongodb.MongoClient;
-//var ObjectID = mongodb.ObjectID;
+var ObjectID = mongodb.ObjectID;
 var client = new MongoClient("mongodb://localhost:27017", { useNewUrlParser: true });
 var db;
 
@@ -215,7 +215,7 @@ io.on("connection", function(socket) {
 				console.log("ERROR: " + err);
 			}
 			else {
-                console.log(pokemon);
+                //console.log(pokemon);
 				socket.emit("addPKMNtoList", pokemon);
 			}
 		});
@@ -223,18 +223,48 @@ io.on("connection", function(socket) {
     
     socket.on("setPKMN", function(pkmn1, pkmn2, pkmn3, callbackFunctionForClient) { // sets a players pokemon from their selection
         // queue.indexOf(trainerNames[socket.id]) // will be zero or one
-        var tempPKMN1 = db.collection("pkmn").find({_id : pkmn1});
-        console.log(tempPKMN1);
-        if (tempPKMN1.length) {
+        var validTeam = 0;
+        db.collection("pkmn").find({_id : parseFloat(pkmn1)}).toArray(function(err, pkmnID1) { // PKMN 1
+            var tempPKMN1 = pkmnID1;
+            if (tempPKMN1.length) {
             // pokemon good
+            validTeam += 1;
             console.log("Valid PKMN 1");
         }
+        });
+        db.collection("pkmn").find({_id : parseFloat(pkmn2)}).toArray(function(err, pkmnID1) { // PKMN 2
+            var tempPKMN1 = pkmnID1;
+            if (tempPKMN1.length) {
+            // pokemon good
+            validTeam += 1;
+            console.log("Valid PKMN 2");
+        }
+        });
+        db.collection("pkmn").find({_id : parseFloat(pkmn3)}).toArray(function(err, pkmnID1) { // PKMN 3
+            var tempPKMN1 = pkmnID1;
+            if (tempPKMN1.length) {
+            // pokemon good
+            validTeam += 1;
+            console.log("Valid PKMN 3");
+        }
+        });
+
+        if (validTeam == 3) {
+            // set team on server
+            p1[0] = db.collection("pkmn").find({_id : parseFloat(pkmn3)}).toArray(function(err, pkmnID1) {
+                //WIP
+            });
+            // execute differences, io.emit out battle state when ready
+            // playerX ready variable?
+            
+            // callback function true = update screen, else say "bad pokemon"
+            callbackFunctionForClient(true);
+        }
+        else {
+            callbackFunctionForClient(false);
+        }
+        
     });
-
-
-
-
-
 
     // start game
     io.emit("effectPlayerOneHealth", playerOnePokemon.getCurrentHealth());
@@ -249,7 +279,7 @@ io.on("connection", function(socket) {
 
     function fight(readyOne, readyTwo){
         if(readyOne == true && readyTwo == true){
-            makePlayerSpeedsRandom();
+            makePlayerSpeedsRandom(); // no longer random, pull pokemon speeds
             if(playerOneSpeed >= playerTwoSpeed){
                 io.emit("whoAttackedFirst", 1);
                 playerTwoPokemon.effectPokemonHealth(true, playerOnePokemon.quickFindAttack(playerOneAttackedWith)[1]);
@@ -344,7 +374,7 @@ client.connect(function(err) {
         db.collection("pkmn").insertOne({_id : 9, name : "Blastoise", hp : 154, atk : 92, def : 120, spd : 98, m1name : "Tackle", m1pwr : 40, m1acr : 100, m2name : "Fire Blast", m2pwr : 110, m2acr : 85, m3name : "Fire Spin", m3pwr : 35, m3acr : 85, m4name : "Fly", m4pwr : 90, m4acr : 95,});
         db.collection("pkmn").insertOne({_id : 3, name : "Venasaur", hp : 155, atk : 91, def : 103, spd : 100, m1name : "Scratch", m1pwr : 40, m1acr : 100, m2name : "Fire Blast", m2pwr : 110, m2acr : 85, m3name : "Fire Spin", m3pwr : 35, m3acr : 85, m4name : "Fly", m4pwr : 90, m4acr : 95,});
         155, 91, 103, 100,
-        db.collection("pkmn").insertOne({_id : 51, name : "Machamp", hp : 153, atk : 93, def : 98, spd : 120, m1name : "Slam", m1pwr : 40, m1acr : 100, m2name : "Fire Blast", m2pwr : 110, m2acr : 85, m3name : "Fire Spin", m3pwr : 35, m3acr : 85, m4name : "Fly", m4pwr : 90, m4acr : 95,});
+        db.collection("pkmn").insertOne({_id : 51, name : "Machamp", hp : 150, atk : 93, def : 98, spd : 120, m1name : "Slam", m1pwr : 40, m1acr : 100, m2name : "Fire Blast", m2pwr : 110, m2acr : 85, m3name : "Fire Spin", m3pwr : 35, m3acr : 85, m4name : "Fly", m4pwr : 90, m4acr : 95,});
 
         
         server.listen(80, function() {
