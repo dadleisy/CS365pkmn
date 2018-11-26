@@ -31,6 +31,41 @@ function showWaitText(player) {
     $("#player" + player + "FightMenu").hide();
 }
 
+socket.on("addPKMNtoList", function(pkmnArray) {
+    $(".pkmn").html("");
+    var tsize = pkmnArray.length;
+    var i = 0;
+    while (tsize > 0) {
+        if (tsize >= 3) {
+            console.log(pkmnArray[i].name);
+            $(".pkmn").append("<tr><td>" + pkmnArray[i]._id + " " + pkmnArray[i].name + "</td>");
+            i += 1;
+            console.log(pkmnArray[i].name);
+            $(".pkmn").append("<td>" + pkmnArray[i]._id + " " + pkmnArray[i].name + "</td>");
+            i += 1;
+            console.log(pkmnArray[i].name);
+            $(".pkmn").append("<td>" + pkmnArray[i]._id + " " + pkmnArray[i].name + "</td></tr>");
+            i += 1;
+            tsize -= 3;
+        }
+        else if (tsize == 2) {
+            console.log(pkmnArray[i].name);
+            $(".pkmn").append("<tr><td>" + pkmnArray[i]._id + " " + pkmnArray[i].name + "</td>");
+            i += 1;
+            console.log(pkmnArray[i].name);
+            $(".pkmn").append("<td>" + pkmnArray[i]._id + " " + pkmnArray[i].name + "</td></tr>");
+            i += 1;
+            tsize = 0;
+        }
+        else if (tsize == 1) {
+            console.log(pkmnArray[i].name);
+            $(".pkmn").append("<tr><td>" + pkmnArray[i]._id + " " + pkmnArray[i].name + "</td></tr>");
+            i += 1;
+            tsize = 0;
+        }
+    }
+});
+
 function setThingsUp() {
     $("#playerOneMenu").hide();
     $("#playerTwoMenu").hide();
@@ -253,11 +288,14 @@ function setThingsUp() {
     });
 
     socket.on("showPKMN", function(queue) {
+
         if (trainerLocal == queue[0] || trainerLocal == queue[1]) {
+            socket.emit("sendPKMN");
             $("#pkmnTable").show();
+
         }
     });
-}
+} // END SET THINGS UP
 
 $(setThingsUp);
 

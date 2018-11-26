@@ -207,6 +207,18 @@ io.on("connection", function(socket) {
 			io.emit("updateQueue", sendQueue(queue));
 			callbackFunctionForClient(true);
 		}
+    });
+    
+    socket.on("sendPKMN", function() {
+		db.collection("pkmn").find({}).toArray(function(err, pokemon) {
+			if (err!=null) {
+				console.log("ERROR: " + err);
+			}
+			else {
+                console.log(pokemon);
+				socket.emit("addPKMNtoList", pokemon);
+			}
+		});
 	});
 
 
