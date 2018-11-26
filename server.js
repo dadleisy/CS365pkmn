@@ -209,7 +209,7 @@ io.on("connection", function(socket) {
 		}
     });
     
-    socket.on("sendPKMN", function() {
+    socket.on("sendPKMN", function() { // sends array of PKMN to list for picking
 		db.collection("pkmn").find({}).toArray(function(err, pokemon) {
 			if (err!=null) {
 				console.log("ERROR: " + err);
@@ -219,7 +219,17 @@ io.on("connection", function(socket) {
 				socket.emit("addPKMNtoList", pokemon);
 			}
 		});
-	});
+    });
+    
+    socket.on("setPKMN", function(pkmn1, pkmn2, pkmn3, callbackFunctionForClient) { // sets a players pokemon from their selection
+        // queue.indexOf(trainerNames[socket.id]) // will be zero or one
+        var tempPKMN1 = db.collection("pkmn").find({_id : pkmn1});
+        console.log(tempPKMN1);
+        if (tempPKMN1.length) {
+            // pokemon good
+            console.log("Valid PKMN 1");
+        }
+    });
 
 
 

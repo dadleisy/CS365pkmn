@@ -31,7 +31,7 @@ function showWaitText(player) {
     $("#player" + player + "FightMenu").hide();
 }
 
-socket.on("addPKMNtoList", function(pkmnArray) {
+socket.on("addPKMNtoList", function(pkmnArray) { // adds Pokemon to the pokemon select screen
     $(".pkmn").html("");
     var tsize = pkmnArray.length;
     var i = 0;
@@ -94,6 +94,15 @@ function setThingsUp() {
             $("#userText").val("");
         });
         event.preventDefault(); //preventing the browser's default behavior of "submitting" the form.
+    });
+
+    $("#pickPKMN").click( function() { // send PKMN choices to server
+        socket.emit("setPKMN", $("#pkmn1").val(), $("#pkmn2").val(), $("#pkmn3").val(), function (validPKMN) {
+            // if successful, show appropriate screen
+            // if unsuccessful, prompt to pick proper pokemon IDs
+        });
+        console.log("Clicked pick PKMN button");
+
     });
 
     function updateGUI() { // may have to mess with this for base case
@@ -292,6 +301,7 @@ function setThingsUp() {
         if (trainerLocal == queue[0] || trainerLocal == queue[1]) {
             socket.emit("sendPKMN");
             $("#pkmnTable").show();
+            $(".pick").show();
 
         }
     });
