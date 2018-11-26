@@ -46,7 +46,11 @@ var move = {moveName: "name", power: "power", acr: "acr"};
 //db.pokemon.insert(new pkmn("Blastoise", 154, 92, 120, 98, new move("tackle", 40, 100), new move("tackle", 40, 100), new move("tackle", 40, 100), new move("tackle", 40, 100)));
 //db.pokemon.insert(new pkmn("Venasaur", 155, 91, 103, 100, new move("tackle", 40, 100), new move("tackle", 40, 100), new move("tackle", 40, 100), new move("tackle", 40, 100)));
 
-function pokemon(name, image, maxHealth, attack, defense, speed, attack1Name, attack1Damage, attack2Name, attack2Damage, attack3Name, attack3Damage, attack4Name, attack4Damage,) {
+
+// I dont want to mess with your variables, so I will just add the this.attribute to this section
+
+// !!!!! BIG UPDATE: CHANGING attack#name, attack#damage to OBJECT "attack1"
+function pokemon(name, image, maxHealth, attack, defense, speed, attack1, attack2, attack3, attack4) {
     this.name = name;
     this.image = image;
     this.maxHealth = maxHealth; 
@@ -56,15 +60,10 @@ function pokemon(name, image, maxHealth, attack, defense, speed, attack1Name, at
 
     // convert broken variables into objects
 
-    this.attack1Name = attack1Name;
-    this.attack1Damage = attack1Damage;
-    this.attack2Name = attack2Name;
-    this.attack2Damage = attack2Damage;
-    this.attack3Name = attack3Name;
-    this.attack3Damage = attack3Damage;
-    this.attack4Name = attack4Name;
-    this.attack4Damage = attack4Damage;
-
+    this.attack1 = {name: "name", power: 0, accuracy: 0};
+    this.attack2 = {name: "name", power: 0, accuracy: 0};
+    this.attack3 = {name: "name", power: 0, accuracy: 0};
+    this.attack4 = {name: "name", power: 0, accuracy: 0};
     this.getCurrentHealth = function(){
         return this.currentHealth;
     }
@@ -183,6 +182,8 @@ io.on("connection", function(socket) {
         delete trainerNames[socket.id]; // pop guy from game world
         queue = queue.filter(Boolean); // get rid of empties
         console.log(queue);
+        io.emit("updateQueue", sendQueue(queue));
+        io.emit("showPKMN", sendQueue(queue));
 	});
 
     socket.on("setTrainer", function(username, callbackFunctionForClient) {
@@ -195,6 +196,7 @@ io.on("connection", function(socket) {
             trainerNames[socket.id] = username; // may have to disconnect
             console.log("My socket's ID is: " + queue[queue.length - 1]);
             if (queue.length >= 2) {
+                // function for checking if you're real
                 if ( queue[queue.indexOf(trainerNames[socket.id])] == queue[0] || queue[queue.indexOf(trainerNames[socket.id])] == queue[1]) {
                     // if you are playing, get the Pokemon pick menu
                     io.emit("showPKMN", sendQueue(queue));
