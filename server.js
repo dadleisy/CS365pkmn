@@ -1,7 +1,7 @@
 // mongo.db server stuff
 var mongodb = require("mongodb");
 var MongoClient = mongodb.MongoClient;
-var ObjectID = mongodb.ObjectID;
+//var ObjectID = mongodb.ObjectID;
 var client = new MongoClient("mongodb://localhost:27017", { useNewUrlParser: true });
 var db;
 
@@ -42,9 +42,8 @@ var p2 = [];
 // database insert of Pokemon
 var pkmn = {name: "name", hp: 0, atk: 0, def: 0, spd: 0, m1: 0, m2: 0, m3: 0, m4: 0};
 var move = {moveName: "name", power: "power", acr: "acr"};
-//db.pokemon.insert(new pkmn("Charizard", 153, 93, 98, 120, new move("tackle", 40, 100), new move("tackle", 40, 100), new move("tackle", 40, 100), new move("tackle", 40, 100)));
-//db.pokemon.insert(new pkmn("Blastoise", 154, 92, 120, 98, new move("tackle", 40, 100), new move("tackle", 40, 100), new move("tackle", 40, 100), new move("tackle", 40, 100)));
-//db.pokemon.insert(new pkmn("Venasaur", 155, 91, 103, 100, new move("tackle", 40, 100), new move("tackle", 40, 100), new move("tackle", 40, 100), new move("tackle", 40, 100)));
+//db.insert(new pkmn("Blastoise", 154, 92, 120, 98, "tackle", 40, 100, "tackle", 40, 100, "tackle", 40, 100, "tackle", 40, 100));
+//db.insert(new pkmn("Venasaur", 155, 91, 103, 100, "tackle", 40, 100, "tackle", 40, 100, "tackle", 40, 100, "tackle", 40, 100));
 
 
 // I dont want to mess with your variables, so I will just add the this.attribute to this section
@@ -307,6 +306,30 @@ io.on("connection", function(socket) {
 
 }); // end on connection
 
-server.listen(80, function () {
-    console.log("Server is waiting on port 80.");
+//server.listen(80, function () {
+//    console.log("Server is waiting on port 80.");
+//});
+
+var dbName = "pokemon";
+
+client.connect(function(err) {
+	if (err != null) throw err;
+	else {
+        db = client.db(dbName);
+        console.log()
+        // add default pokemon to game
+        db.collection("pkmn").insertOne({_id : 6, name : "Charizard", hp : 153, atk : 93, def : 98, spd : 120, m1name : "Slash", m1pwr : 40, m1acr : 100, m2name : "Fire Blast", m2pwr : 110, m2acr : 85, m3name : "Fire Spin", m3pwr : 35, m3acr : 85, m4name : "Fly", m4pwr : 90, m4acr : 95,});
+        db.collection("pkmn").insertOne({_id : 9, name : "Blastoise", hp : 154, atk : 92, def : 120, spd : 98, m1name : "Tackle", m1pwr : 40, m1acr : 100, m2name : "Fire Blast", m2pwr : 110, m2acr : 85, m3name : "Fire Spin", m3pwr : 35, m3acr : 85, m4name : "Fly", m4pwr : 90, m4acr : 95,});
+        db.collection("pkmn").insertOne({_id : 3, name : "Venasaur", hp : 155, atk : 91, def : 103, spd : 100, m1name : "Scratch", m1pwr : 40, m1acr : 100, m2name : "Fire Blast", m2pwr : 110, m2acr : 85, m3name : "Fire Spin", m3pwr : 35, m3acr : 85, m4name : "Fly", m4pwr : 90, m4acr : 95,});
+        155, 91, 103, 100,
+        db.collection("pkmn").insertOne({_id : 51, name : "Machamp", hp : 153, atk : 93, def : 98, spd : 120, m1name : "Slam", m1pwr : 40, m1acr : 100, m2name : "Fire Blast", m2pwr : 110, m2acr : 85, m3name : "Fire Spin", m3pwr : 35, m3acr : 85, m4name : "Fly", m4pwr : 90, m4acr : 95,});
+
+        
+        server.listen(80, function() {
+			console.log("Mongo Server with socket.io is ready.");
+		});
+	}
 });
+
+//console.log(db);
+//db.collection("pkmn").insertOne({_id : 6, name : "Charizard", hp : 153, atk : 93, def : 98, spd : 120, m1name : "tackle", m1pwr : 40, m1acr : 100});
