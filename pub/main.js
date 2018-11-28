@@ -31,7 +31,7 @@ function showWaitText(player) {
     $("#player" + player + "FightMenu").hide();
 }
 
-socket.on("addPKMNtoList", function(pkmnArray) { // adds Pokemon to the pokemon select screen
+socket.on("addPKMNtoList", function (pkmnArray) { // adds Pokemon to the pokemon select screen
     $(".pkmn").html("");
     var tsize = pkmnArray.length;
     var i = 0;
@@ -96,16 +96,27 @@ function setThingsUp() {
         event.preventDefault(); //preventing the browser's default behavior of "submitting" the form.
     });
 
-    $("#pickPKMN").click( function() { // send PKMN choices to server
+    $("#pickPKMN").click(function () { // send PKMN choices to server
         socket.emit("setPKMN", $("#pkmn1").val(), $("#pkmn2").val(), $("#pkmn3").val(), function (validPKMN) {
             // if successful, show appropriate screen
             // if unsuccessful, prompt to pick proper pokemon IDs
+            if (validPKMN) {
+
+            }
+            else {
+
+            }
         });
         console.log("Clicked pick PKMN button");
 
     });
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     function updateGUI() { // may have to mess with this for base case
+        console.log("GUI UPDATE");
         if (gameReady) {
             $(document.getElementById("oppenetHealth")).width(playerTwoHealth);
             $(document.getElementById("playerHealth")).width(playerOneHealth);
@@ -160,8 +171,7 @@ function setThingsUp() {
                 }
             }
         }
-    }
-    // updateGUI();
+    }  // updateGUI();
 
     $("#fight1").click(function () {
         playerOne = 2;
@@ -171,7 +181,7 @@ function setThingsUp() {
         playerTwo = 2;
         updateGUI();
     });
-    $("#item1").click(function () {
+    $("#item1").click(function () { // click P1 icon
         alert('Item has been clicked');
     });
     $("#item2").click(function () {
@@ -253,6 +263,11 @@ function setThingsUp() {
         updateGUI();
     });
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // GET POKEMON INFO FROM SERVER
 
     socket.on("getAllBasicInfoOfPlayerOnePokemon", function (pokemonName, imageName, getHealth, attack1, attack2, attack3, attack4) {
         $("#player").attr("src", imageName);
@@ -265,6 +280,7 @@ function setThingsUp() {
         $("#thirdAttack1").text(arguments[5]);
         $("#fourthAttack1").text(arguments[6]);
     });
+
     socket.on("getAllBasicInfoOfPlayerTwoPokemon", function (pokemonName, imageName, getHealth, attack1, attack2, attack3, attack4) {
         $("#oppenet").attr("src", imageName);
         playerTwosCurrentPokemonName = pokemonName;
@@ -296,7 +312,7 @@ function setThingsUp() {
         // write rest in other
     });
 
-    socket.on("showPKMN", function(queue) {
+    socket.on("showPKMN", function (queue) {
 
         if (trainerLocal == queue[0] || trainerLocal == queue[1]) {
             socket.emit("sendPKMN");
@@ -305,6 +321,15 @@ function setThingsUp() {
 
         }
     });
+
+    socket.on("gameReady", function (pkmnArray) {
+        gameReady = true;
+        $("#imageField").show();
+        $("#pickPage").hide();
+        updateGUI();
+
+    });
+
 } // END SET THINGS UP
 
 $(setThingsUp);
