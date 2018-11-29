@@ -196,7 +196,11 @@ function trainer (name, pokemon1, pokemon2, pokemon3){
         return this.numberNotKOed;
     }
     this.changePokemon = function(changeTo){
-        this.currentlyUseingPokemon = changeTo;
+        if(this["pokemon"+changeTo].getCurrentHealth() > 0){
+            this.currentlyUseingPokemon = changeTo;
+        }else{
+            return -1;
+        }
     }
     this.pokemonKOed = function(){
         this.numberNotKOed = this.numberNotKOed - 1;
@@ -204,9 +208,9 @@ function trainer (name, pokemon1, pokemon2, pokemon3){
     }
 }
 //an example of adding pokemon to trainers
-//creating the pokemon and adding them to their trainer can be moved safely to anywere below this point.
+//creating the pokemon and adding them to their trainer can be moved safely to anywere below this point and above autoswap().
 //pokemon must be created before adding them to trainers.
-//the trainers var names must be "trainerOne" and "trainerTwo". Pokemon var names can be anything
+//the trainers var names must be "trainerOne" and "trainerTwo". pokemmons var name can be anything
 
  var playerOnePokemon1 = new pokemon (3, "defaultName1", "default.PNG", 150, "type", 1, 1, 1, "Attack 1", 20, 1, "Attack 2", 30, 1, "Attack 3", 40, 1, "Attack 4", 150, 1);
  var playerOnePokemon2 = new pokemon (6, "defaultName2", "default.PNG", 150, "type", 1, 1, 1, "Attack 1", 20, 1, "Attack 2", 30, 1, "Attack 3", 40, 1, "Attack 4", 150, 1);
@@ -438,6 +442,64 @@ io.on("connection", function (socket) {
             }
         }
     }
+
+/***********************************************swapping pokemon***********************************/
+     //swap player one's pokemon
+     socket.on("playerOneSwap1", function(){
+        if(trainerOne.changePokemon(1) != -1){
+            io.emit("effectPlayerOneHealth", trainerOne[trainerOne.getCurrentlyUseingPokemon()].getCurrentHealth());
+            io.emit("getAllBasicInfoOfPlayerOnePokemon", trainerOne[trainerOne.getCurrentlyUseingPokemon()].getName(), trainerOne[trainerOne.getCurrentlyUseingPokemon()].getSprite(), trainerOne[trainerOne.getCurrentlyUseingPokemon()].getCurrentHealth(), trainerOne[trainerOne.getCurrentlyUseingPokemon()].attack1Name, trainerOne[trainerOne.getCurrentlyUseingPokemon()].attack2Name, trainerOne[trainerOne.getCurrentlyUseingPokemon()].attack3Name, trainerOne[trainerOne.getCurrentlyUseingPokemon()].attack4Name);
+        }
+        else{
+            console.log("pokemon is KOed");
+        }
+    });
+    socket.on("playerOneSwap2", function(){
+        if(trainerOne.changePokemon(2) != -1){
+            io.emit("effectPlayerOneHealth", trainerOne[trainerOne.getCurrentlyUseingPokemon()].getCurrentHealth());
+            io.emit("getAllBasicInfoOfPlayerOnePokemon", trainerOne[trainerOne.getCurrentlyUseingPokemon()].getName(), trainerOne[trainerOne.getCurrentlyUseingPokemon()].getSprite(), trainerOne[trainerOne.getCurrentlyUseingPokemon()].getCurrentHealth(), trainerOne[trainerOne.getCurrentlyUseingPokemon()].attack1Name, trainerOne[trainerOne.getCurrentlyUseingPokemon()].attack2Name, trainerOne[trainerOne.getCurrentlyUseingPokemon()].attack3Name, trainerOne[trainerOne.getCurrentlyUseingPokemon()].attack4Name);
+        }
+        else{
+            console.log("pokemon is KOed");
+        }
+    });
+    socket.on("playerOneSwap3", function(){
+        if(trainerOne.changePokemon(3) != -1){
+            io.emit("effectPlayerOneHealth", trainerOne[trainerOne.getCurrentlyUseingPokemon()].getCurrentHealth());
+            io.emit("getAllBasicInfoOfPlayerOnePokemon", trainerOne[trainerOne.getCurrentlyUseingPokemon()].getName(), trainerOne[trainerOne.getCurrentlyUseingPokemon()].getSprite(), trainerOne[trainerOne.getCurrentlyUseingPokemon()].getCurrentHealth(), trainerOne[trainerOne.getCurrentlyUseingPokemon()].attack1Name, trainerOne[trainerOne.getCurrentlyUseingPokemon()].attack2Name, trainerOne[trainerOne.getCurrentlyUseingPokemon()].attack3Name, trainerOne[trainerOne.getCurrentlyUseingPokemon()].attack4Name);
+        }
+        else{
+            console.log("pokemon is KOed");
+        }
+    });
+
+    //swaps player two's pokemon
+    socket.on("playerTwoSwap1", function(){
+        if(trainerTwo.changePokemon(1) != -1){
+            io.emit("effectPlayerTwoHealth", trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].getCurrentHealth());
+            io.emit("getAllBasicInfoOfPlayerTwoPokemon", trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].getName(), trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].getSprite(), trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].getCurrentHealth(), trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].attack1Name, trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].attack2Name, trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].attack3Name, trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].attack4Name);
+        }else{
+            console.log("pokemon is KOed");
+        }
+    });
+    socket.on("playerTwoSwap2", function(){
+        if(trainerTwo.changePokemon(2) != -1){
+            io.emit("effectPlayerTwoHealth", trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].getCurrentHealth());
+            io.emit("getAllBasicInfoOfPlayerTwoPokemon", trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].getName(), trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].getSprite(), trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].getCurrentHealth(), trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].attack1Name, trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].attack2Name, trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].attack3Name, trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].attack4Name);
+        }else{
+            console.log("pokemon is KOed");
+        }
+    });
+    socket.on("playerTwoSwap3", function(){
+        if(trainerTwo.changePokemon(3) != -1){
+            io.emit("effectPlayerTwoHealth", trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].getCurrentHealth());
+            io.emit("getAllBasicInfoOfPlayerTwoPokemon", trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].getName(), trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].getSprite(), trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].getCurrentHealth(), trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].attack1Name, trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].attack2Name, trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].attack3Name, trainerTwo[trainerTwo.getCurrentlyUseingPokemon()].attack4Name);
+        }else{
+            console.log("pokemon is KOed");
+        }
+    });
+
+
 /*****************************************end of second addition*******************************************/
 
 
