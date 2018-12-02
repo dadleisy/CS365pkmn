@@ -45,7 +45,7 @@ function whatTrainer(indexID) {
 
 function pkmnArray2Class(array) {
     // id, name, image, maxHealth, type, atk, def, spd, m1name, m1pwr, m1acr, m2name, m2pwr, m2acr, m3name, m3pwr, m3acr, m4name, m4pwr, m4acr
-    return new pokemon(array._id , array.name, array.image, array.hp, array.type, array.atk, array.def, array.spd, array.m1name, array.m1pwr, array.m1acr, array.m2name, array.m2pwr, array.m2acr, array.m3name, array.m3pwr, array.m3acr, array.m4name, array.m4pwr, array.m4acr);
+    return new pokemon(array._id, array.name, array.image, array.hp, array.type, array.atk, array.def, array.spd, array.m1name, array.m1pwr, array.m1acr, array.m2name, array.m2pwr, array.m2acr, array.m3name, array.m3pwr, array.m3acr, array.m4name, array.m4pwr, array.m4acr);
 }
 
 // function bonusDMG { ADD IF TIME, will do a calculation if move is of right type against pokemon, attack bonus
@@ -368,9 +368,11 @@ io.on("connection", function (socket) {
     // SOCKET ON USE ITEM
 
     function fight(readyOne, readyTwo) {// ACTIVATES WHEN PLAYERS HAVE CHOSE MOVES
+        console.log("FIGHT CALLED");
         if (readyOne == true && readyTwo == true) {
-            makePlayerSpeedsRandom(); // no longer random, pull pokemon speeds !!!
-            if (playerOneSpeed >= playerTwoSpeed) {
+            console.log("FIGHT SUCCESSFUL");
+            // makePlayerSpeedsRandom(); // no longer random, pull pokemon speeds !!!
+            if ( playerOnePokemon.spd >= playerTwoPokemon.spd) {
                 io.emit("whoAttackedFirst", 1);
                 playerTwoPokemon.effectPokemonHealth(true, playerOnePokemon.quickFindAttack(playerOneAttackedWith)[1]);
                 io.emit("effectPlayerTwoHealth", playerTwoPokemon.getCurrentHealth());
