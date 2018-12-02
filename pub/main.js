@@ -31,6 +31,20 @@ function showWaitText(player) {
     $("#player" + player + "FightMenu").hide();
 }
 
+/*************************zack added 11/29/18****************************/
+
+function showSwapMenu(player){
+    $("#player"+player+"SwapMenu").show();
+    $("#player"+player+"Menu").hide();
+}
+
+function hideSwapMenu(player){
+    $("#player"+player+"SwapMenu").hide();
+    $("#player"+player+"Menu").show();
+}
+
+/*********************************end of first******************************************/
+
 socket.on("addPKMNtoList", function (pkmnArray) { // adds Pokemon to the pokemon select screen
     $(".pkmn").html("");
     var tsize = pkmnArray.length;
@@ -187,12 +201,14 @@ function setThingsUp() {
     $("#item2").click(function () {
         alert('Item has been clicked');
     });
+/**********************************changed this*************************/
     $("#swap1").click(function () {
-        alert('Swap Pokémon has been clicked');
+        showSwapMenu("One");
     });
     $("#swap2").click(function () {
-        alert('Swap Pokémon has been clicked');
+        showSwapMenu("Two");
     });
+/*************************************end of that change*********************/
     $("#run1").click(function () {
         alert('Run has been clicked');
     });
@@ -200,6 +216,41 @@ function setThingsUp() {
         alert('Run has been clicked');
     });
 
+/***************************************added this*****************************/
+    //swap menu for player one
+    $("#playerOneSwap1").click(function() {
+        socket.emit("playerOneSwap1");
+        hideSwapMenu("One");
+        updateGUI();
+    });
+    $("#playerOneSwap2").click(function() {
+        socket.emit("playerOneSwap2");
+        hideSwapMenu("One");
+        updateGUI();
+    });
+    $("#playerOneSwap3").click(function() {
+        socket.emit("playerOneSwap3");
+        hideSwapMenu("One");
+        updateGUI();
+    });
+
+    //swap menu for player two
+    $("#playerTwoSwap1").click(function() {
+        socket.emit("playerTwoSwap1");
+        hideSwapMenu("Two");
+        updateGUI();
+    });
+    $("#playerTwoSwap2").click(function() {
+        socket.emit("playerTwoSwap2");
+        hideSwapMenu("Two");
+        updateGUI();
+    });
+    $("#playerTwoSwap3").click(function() {
+        socket.emit("playerTwoSwap3");
+        hideSwapMenu("Two");
+        updateGUI();
+    });
+/**************************end of addition*******************************/
 
     $("#firstAttack1").click(function () {
         socket.emit("firstAttack1");
