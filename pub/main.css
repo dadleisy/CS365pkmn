@@ -13,12 +13,13 @@ body{
     height: 110px;
     width: 95%;
     margin: auto;
+    padding: 20px;
     border: double black 4px;
     border-radius: 15px;
 }
 .splitMenu{
     height: 110px;
-    width: 47%;
+    width: 95%;
     border: double black 4px;
     border-radius: 15px;
 }

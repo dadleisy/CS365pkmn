@@ -1,7 +1,12 @@
-11/02/2018
-    Got GitHub working
-    Consolidated files
-    *** Chad's plan: ***
-    get types workings
-    Get user logins working (i.e. socket 1 = player 1)
-    Get pick.html fully functional
+12/01/2018
+
+I am working on unifying things down to one menu for the game.
+Also, I am messing with both the server and the client to make things more streamlined.
+
+I am having trouble following / making quick changes as-is
+
+thus, here are my changes as of saturday night:
+
+CLIENT (oneMenuMain.js)
+- converted menu items to fight, item, swap, and run.
+- converted fight submenu to four buttons with one function with value of move instead of four separate emits
